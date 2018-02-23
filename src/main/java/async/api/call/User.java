@@ -1,4 +1,4 @@
-package completable.future.models;
+package async.api.call;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

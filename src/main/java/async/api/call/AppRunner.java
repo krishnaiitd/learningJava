@@ -1,4 +1,4 @@
-package completable.future.commands;
+package async.api.call;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -6,9 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import completable.future.models.User;
-import completable.future.services.GitHubLookupService;
 
 @Component
 public class AppRunner implements CommandLineRunner {
@@ -24,7 +21,6 @@ public class AppRunner implements CommandLineRunner {
 	public void run(String... arg0) throws Exception {
 		// Start the clock
 		long start = System.currentTimeMillis();
-		System.out.println("I am here");
 		// Kick of multiple, asynchronous lookups
 		CompletableFuture<User> page1 = gitHubLookupService.findUser("PivotalSoftware");
 		CompletableFuture<User> page2 = gitHubLookupService.findUser("CloudFoundry");
@@ -34,7 +30,7 @@ public class AppRunner implements CommandLineRunner {
 		CompletableFuture.allOf(page1, page2, page3).join();
 
 		// Print results, including elapsed time
-		logger.info("Elapsed time: " + (System.currentTimeMillis() - start));
+		logger.info("Elapsed time: " + (System.currentTimeMillis() - start) + "millis");
 		logger.info("--> " + page1.get());
 		logger.info("--> " + page2.get());
 		logger.info("--> " + page3.get());

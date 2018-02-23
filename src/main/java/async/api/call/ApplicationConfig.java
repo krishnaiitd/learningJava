@@ -1,4 +1,4 @@
-package completable.future.main;
+package async.api.call;
 
 import java.util.concurrent.Executor;
 
@@ -20,8 +20,8 @@ public class ApplicationConfig {
     @Bean
     public Executor asyncExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(2);
-        executor.setMaxPoolSize(2);
+        executor.setCorePoolSize(3);
+        executor.setMaxPoolSize(3);
         executor.setQueueCapacity(500);
         executor.setThreadNamePrefix("GithubLookup-");
         executor.initialize();
