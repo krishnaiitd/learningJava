@@ -2,7 +2,7 @@ package object.clone.test;
 
 import java.util.List;
 
-public class ClassA implements Cloneable {
+public class ClassAICloneable implements Cloneable {
 
 	private List<String> ids;
 	private String name;

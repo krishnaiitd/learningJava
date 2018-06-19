@@ -1,20 +1,21 @@
 package object.clone.test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ObjectClone {
 
 	public static void main (String args[]) {
-		ClassA objectA = new ClassA();
+		ClassAICloneable objectA = new ClassAICloneable();
 		List<String> idsA = new ArrayList<>();
 		idsA.add("A");
 		objectA.setIds(idsA);
 		
 		
-		ClassA objectBofA = null;
+		ClassAICloneable objectBofA = null;
 		try {
-			objectBofA = (ClassA) objectA.clone();
+			objectBofA = (ClassAICloneable) objectA.clone();
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
@@ -40,6 +41,24 @@ public class ObjectClone {
 		
 		System.out.println("objectBofA=" + objectBofA);
 		System.out.println("objectA=" + objectA);
+		
+		
+		ClassB classB = new ClassB();
+		classB.setName("KP");
+		List<String> ids = Arrays.asList("a", "b", "c");
+		classB.setIds(ids);
+		
+		ClassB classBClone = deepClone.byGson(classB, classB.getClass());
+		
+		List<String> ids3  = classBClone.getIds();
+		ids3.add("abc");
+		classBClone.setIds(ids3);
+		classBClone.setName("VS");
+		
+		System.out.println("Class B" + classB);
+		System.out.println("clone Class: " + classBClone);
+		
+		
 		
 	}
 }
