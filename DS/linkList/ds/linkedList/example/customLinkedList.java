@@ -84,4 +84,27 @@ public class customLinkedList {
 			count--;
 		}
 	}
+	
+	public void removedByData(String data) {
+		Node current = head;
+		
+		if (current == null) {
+			System.out.println("Nothing to delete");
+		} else {
+			// matches at first place
+			if (current.getData() == data) {
+				head = current.getNext();
+				count--;
+			} else {
+				Node previous = current;
+				current = current.getNext();
+				while (current != null || current.getData() != data) {
+					previous = current;
+					current = current.getNext();
+				}
+				Node dataNode = current;
+			}
+			
+		}
+	}
 }
