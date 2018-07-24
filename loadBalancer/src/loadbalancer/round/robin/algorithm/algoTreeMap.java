@@ -12,15 +12,15 @@ public class algoTreeMap {
 
 		// assigning the values in the tree map
 		// using put()
-		treemap.put(20, "server 1");
-		treemap.put(70, "server 2");
-		treemap.put(100, "server 3");
+		treemap.put(20, "server 1"); // 20% traffic will goes to server 1
+		treemap.put(70, "server 2"); // 50% traffic will goes to server 2
+		treemap.put(100, "server 3");// 30% traffic will goes to server 3
 		
 		int server1Counter = 0;
 		int server2Counter = 0;
 		int server3Counter = 0;
 		
-		for(int i =0; i<10; i++) {
+		for(int i =0; i<100; i++) {
 			int rnd = (new Random()).nextInt(100);
 //			System.out.println("The next server is : " + treemap.ceilingEntry(rnd).getValue());
 			String selectedServer = treemap.ceilingEntry(rnd).getValue();
