@@ -4,7 +4,8 @@
 *.classpath
 *.project
 *.settings/
-
+*.idea
+*.iml
 # Log file
 *.log
 
