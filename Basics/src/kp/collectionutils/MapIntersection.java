@@ -1,9 +1,11 @@
 package kp.collectionutils;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MapIntersection {
     public static void main(String args[]) {
+
 
         Map<String, String> options = new HashMap<>();
         for(int i =0; i< 5; i++) {
@@ -18,8 +20,8 @@ public class MapIntersection {
         }
 
         for(String key: options.keySet()) {
-            System.out.println(options.get(key));
             System.out.println(key);
+            System.out.println(options.get(key));
         }
 
 //
