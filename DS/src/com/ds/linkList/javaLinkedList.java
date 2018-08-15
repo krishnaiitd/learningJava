@@ -1,5 +1,5 @@
-package ds.linkedList.example;
- 
+package com.ds.linkList;
+
 import java.util.*;
 
 public class javaLinkedList {

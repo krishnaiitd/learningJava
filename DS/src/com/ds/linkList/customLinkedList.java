@@ -1,4 +1,4 @@
-package ds.linkedList.example;
+package com.ds.linkList;
 
 public class customLinkedList {
 

@@ -1,4 +1,4 @@
-package object.clone.test;
+package com.ds.object.clone;
 
 import java.util.ArrayList;
 import java.util.Arrays;

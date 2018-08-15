@@ -1,4 +1,4 @@
-package ds.array.problem.example;
+package com.ds;
 
 public class LeastPositiveValue {
 
