@@ -1,11 +1,12 @@
 package com.collections;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 public class HashSetExample {
     public static void main(String args[]) {
-        System.out.println("Hello HashMap Example");
+        System.out.println("Hello HashSet/HashMap Example");
 
         // Properties
         // #1. HashSet cannot contain duplicate values.
@@ -18,10 +19,10 @@ public class HashSetExample {
         Set<String> hashSet = new HashSet<>();
         hashSet.add("Krishna");
         hashSet.add("Prasad");
-        System.out.println(hashSet);
         // Adding duplicate elements will be ignored
         hashSet.add("Prasad");
-
+        System.out.print("HashSet: ");
+        System.out.println(hashSet);
 
 //        Constructors in HashSet:
 //
@@ -32,6 +33,16 @@ public class HashSetExample {
 //        HashSet h = new HashSet(int initialCapacity, float loadFactor);
 //        HashSet h = new HashSet(Collection C);
 //        Example: If internal capacity is 16 and load factor is 0.75 then, number of buckets will automatically get increased when the table has 12 elements in it.
+
+
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("1", "Krishna");
+        hashMap.put("2", "Prasad");
+        hashMap.put("0", "0th ele");
+        hashMap.put("0", "0th ele, other");
+        hashMap.put("11", "11th ele");
+        System.out.print("HashMap: ");
+        System.out.print(hashMap);
 
 
 
