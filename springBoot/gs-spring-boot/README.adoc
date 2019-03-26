@@ -304,14 +304,14 @@ Steps to compile and run it
 $ mvn clean compile package
 ----
 
-Check that 8080 port is available or not by `curl localhost:8080`, if available then run the below jar on default port 8080
+Check that 8080 port is available or not by `curl localhost:8080`, if available then run the jar [created by above command] on default port 8080
 
 [subs="attributes"]
 ----
 $ mvn package && java -jar target/gs-spring-boot-0.1.0.jar
 ----
 
-If 8080 port already occupied then add on other port as below
+If 8080 port already occupied then add `-Dserver.port=8081` on any other port as below
 
 [subs="attributes"]
 ----
@@ -326,7 +326,7 @@ $ curl localhost:8080/name/krishna
     Greeting from spring boot
 ----
 
-And goes to the ternimal where the application is running for check the sysout
+And goes to the ternimal where the application is running for check the sysout, I have added the code class: `NullCheckAspect`
 [subs="attributes"]
 ----
     Found the null checker annotation with name: nullChecker
