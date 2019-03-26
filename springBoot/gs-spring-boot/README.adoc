@@ -293,29 +293,36 @@ The following guides may also be helpful:
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
 
 
-== Run this example for AOP check
+== How to Run this example for AOP check
 Steps to compile and run it
-1. Go to the folder `gs-spring-boot`
-2. To compile
+
+* Go to the folder `gs-spring-boot`
+* To compile
+
 [subs="attributes"]
 ----
 $ mvn clean compile package
 ----
-3. Check that 8080 port is available or not by `curl localhost:8080`, if available then run the below jar on default port 8080
+
+Check that 8080 port is available or not by `curl localhost:8080`, if available then run the below jar on default port 8080
+
 [subs="attributes"]
 ----
 $ mvn package && java -jar target/gs-spring-boot-0.1.0.jar
 ----
+
 If 8080 port already occupied then add on other port as below
+
 [subs="attributes"]
 ----
 $ mvn package && java -Dserver.port=8081 -jar target/gs-spring-boot-0.1.0.jar
 ----
-4. Make a curl request to check that AOP is invoked:
+
+Make a curl request to check that AOP is invoked:
+
 [subs="attributes"]
 ----
 $ curl localhost:8080/name/krishna
-----
     Greeting from spring boot
 ----
 
