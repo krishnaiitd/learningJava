@@ -291,3 +291,41 @@ The following guides may also be helpful:
 * https://spring.io/guides/gs/serving-web-content/[Serving Web Content with Spring MVC]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
+
+
+== Run this example for AOP check
+Steps to compile and run it
+1. Go to the folder `gs-spring-boot`
+2. To compile
+[subs="attributes"]
+----
+$ mvn clean compile package
+----
+3. Check that 8080 port is available or not by `curl localhost:8080`, if available then run the below jar on default port 8080
+[subs="attributes"]
+----
+$ mvn package && java -jar target/gs-spring-boot-0.1.0.jar
+----
+If 8080 port already occupied then add on other port as below
+[subs="attributes"]
+----
+$ mvn package && java -Dserver.port=8081 -jar target/gs-spring-boot-0.1.0.jar
+----
+4. Make a curl request to check that AOP is invoked:
+[subs="attributes"]
+----
+$ curl localhost:8080/name/krishna
+----
+    Greeting from spring boot
+----
+
+And goes to the ternimal where the application is running for check the sysout
+[subs="attributes"]
+----
+    Found the null checker annotation with name: nullChecker
+    Found the null checker annotation with arg:  krishna
+    {nullChecker=krishna}
+    Before class: TimeTrackerAspect : String hello.HelloController.nullChecker(String)1553610780599
+    krishna
+    Total milli seconds in execution of method: String hello.HelloController.nullChecker(String) is :0
+----
