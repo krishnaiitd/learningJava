@@ -1,4 +1,4 @@
-package hello;
+package com.example.demo;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class NullCheckAspect {
 
-	@Around("execution(* hello.HelloController.nullChecker(String))")
+	@Around("execution(* com.example.demo.HelloController.nullChecker(String))")
 	public Object around(ProceedingJoinPoint pJoinPoint) throws Throwable {
                 
         Object[] args = pJoinPoint.getArgs();

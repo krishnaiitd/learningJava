@@ -1,4 +1,4 @@
-package hello;
+package com.example.demo;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -9,12 +9,11 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class TimeTrackerAspect {
 	
-	@Around("@annotation(hello.TimeTracker)")
+	@Around("@annotation(TimeTracker)")
     public Object around(ProceedingJoinPoint pJoinPoint) throws Throwable {
 		Long startTime = System.currentTimeMillis();
-        System.out.println("Before class: TimeTrackerAspect : " + pJoinPoint.getSignature() + startTime.toString());
         Object obj = pJoinPoint.proceed();
-        System.out.println("Total milli seconds in execution of method: " + pJoinPoint.getSignature() + " is :" + (System.currentTimeMillis()-startTime));
+        System.out.println("Total milli seconds in execution of method: " + pJoinPoint.getSignature().getName() + " is :" + (System.currentTimeMillis()-startTime));
         return obj;
 	}
 }

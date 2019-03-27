@@ -332,7 +332,7 @@ And goes to the ternimal where the application is running for check the sysout, 
     Found the null checker annotation with name: nullChecker
     Found the null checker annotation with arg:  krishna
     {nullChecker=krishna}
-    Before class: TimeTrackerAspect : String hello.HelloController.nullChecker(String)1553610780599
+    Before class: TimeTrackerAspect : String HelloController.nullChecker(String)1553610780599
     krishna
-    Total milli seconds in execution of method: String hello.HelloController.nullChecker(String) is :0
+    Total milli seconds in execution of method: String HelloController.nullChecker(String) is :0
 ----

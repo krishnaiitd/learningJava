@@ -1,4 +1,4 @@
-package hello;
+package com.example.demo;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Retention(RUNTIME)
-@Target(ElementType.METHOD)
-public @interface TimeTracker {
-
+@Target(ElementType.PARAMETER)
+public @interface NullCheck {
 }
