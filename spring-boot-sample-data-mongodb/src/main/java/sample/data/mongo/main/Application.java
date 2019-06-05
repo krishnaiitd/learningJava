@@ -84,7 +84,6 @@ public class Application {
                 // return newCustomer;
 
                 // find and update and then return
-
                 Query query = new Query();
                 query.addCriteria(Criteria.where("firstName").is("First Name"));
 
