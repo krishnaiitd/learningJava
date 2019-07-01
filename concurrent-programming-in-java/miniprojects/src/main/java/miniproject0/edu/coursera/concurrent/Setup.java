@@ -3,6 +3,8 @@ package miniproject0.edu.coursera.concurrent;
 import static edu.rice.pcdp.PCDP.async;
 import static edu.rice.pcdp.PCDP.finish;
 
+import java.util.concurrent.LinkedBlockingDeque;
+
 /**
  * A simple class for testing compilation of an PCDP project.
  */
@@ -27,6 +29,12 @@ public final class Setup {
                 result[0] = val;
             });
         });
+
+//        LinkedBlockingDeque linkedBlockingDeque = new LinkedBlockingDeque();
+//
+//        linkedBlockingDeque.add(23);
+//
+//        linkedBlockingDeque.poll()
 
 //        RunnableClass runnableClass = new RunnableClass();
 //        runnableClass.run();
