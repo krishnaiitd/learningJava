@@ -1,6 +1,10 @@
 package com.ds.binarysearchtree;
 
+import com.sun.deploy.util.StringUtils;
+
 public class BinarySearchTree {
+
+    public static String inOrder = "";
 
     // Node to hold the elements
     class Node {
@@ -37,6 +41,8 @@ public class BinarySearchTree {
             root.left = insertRec(root.left, item);
         } else if (root.key < item) {
             root.right = insertRec(root.right, item);
+        } else {
+            System.out.println("Duplicate elements ignoring it as of now");
         }
 
         return root;
@@ -48,8 +54,12 @@ public class BinarySearchTree {
     void inOrderRec(Node root) {
         if (root != null) {
             inOrderRec((root.left));
-            System.out.println(root.key);
+//            System.out.println(root.key);
+            int value = root.key;
+            inOrder += (String.valueOf(value)).concat("->");
             inOrderRec(root.right);
+        } else {
+             System.out.println(" In left or right left element present");
         }
     }
 
@@ -86,10 +96,12 @@ public class BinarySearchTree {
 
         System.out.println("In-Order");
         tree.inOrderPrint();
-        System.out.println("Pre-Order");
-        tree.preORderPrint();
-        System.out.println("Post-Order");
-        tree.postOrderPrint();
+        System.out.println(inOrder);
+
+//        System.out.println("Pre-Order");
+//        tree.preORderPrint();
+//        System.out.println("Post-Order");
+//        tree.postOrderPrint();
         
     }
 

@@ -12,13 +12,33 @@ public class HelloWorld {
     }
 
 
-    public static void main(String args[]) {
+    public static String s = "";
 
-        int i = 1;
-        while (i <= 6) {
-            method1(i, 2);
-            i++;
+    public static void main(String args[]) {
+//
+//        int i = 1;
+//        while (i <= 6) {
+//            method1(i, 2);
+//            i++;
+//        }
+
+        String a = "krishna";
+
+        String b = a.concat(" Prasad");
+
+        System.out.println(b);
+        System.out.println(s);
+
+        for(Character c : a.toCharArray()) {
+            System.out.println(String.valueOf(c));
+            System.out.println(s);
+//            s.concat(String.valueOf(c));
+            s += String.valueOf(c);
+
         }
+
+        System.out.println("Value of s : " + s);
+
 
 //        System.out.println("Hello world!!!");
 //
