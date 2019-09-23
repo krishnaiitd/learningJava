@@ -1,6 +1,5 @@
 package kp.collectionutils;
 
-import com.sun.javaws.jnl.LibraryDesc;
 
 public class CustomLinkedListExample<E> {
 
