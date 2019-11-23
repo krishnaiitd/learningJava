@@ -16,101 +16,163 @@
 
 package sample.data.mongo.main;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.mongodb.MongoDbFactory;
-import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.convert.DefaultDbRefResolver;
-import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
-import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
-import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.web.client.RestTemplate;
-import sample.data.mongo.models.Customer;
-import sample.data.mongo.repository.CustomerRepository;
+import sample.data.mongo.repository.SpringDataRepository;
 
 @SpringBootApplication(scanBasePackages = "sample.data.mongo")
 @EnableConfigurationProperties
 @EnableMongoRepositories(basePackages = "sample.data.mongo.repository")
 public class Application {
 
-    @Autowired
-    private MongoOperations mongoOperation;
+  @Autowired
+  private MongoOperations mongoOperation;
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
-
-    @Bean
-    public MongoTemplate mongoTemplate(MongoDbFactory mongoDbFactory,
-        MongoMappingContext context) {
-
-        MappingMongoConverter converter =
-            new MappingMongoConverter(new DefaultDbRefResolver(mongoDbFactory), context);
-        converter.setTypeMapper(new DefaultMongoTypeMapper(null));
-
-        MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory, converter);
-
-        return mongoTemplate;
-    }
+  @Bean
+  public RestTemplate restTemplate() {
+    return new RestTemplate();
+  }
 
 
-    @Bean
-    CommandLineRunner init(final CustomerRepository customerRepository) {
+  public static void main(String[] args) {
+    SpringApplication.run(Application.class, args);
+  }
 
-        System.out.println(customerRepository.findByFirstName("Alice"));
-        return new CommandLineRunner() {
-            public void run(String... args) throws Exception {
+  @Bean
+  CommandLineRunner init(final SpringDataRepository springDataRepository) {
 
-                // Insert and return
-                Customer newCustomer = new Customer("First Name", "Last Name", "ABC address");
-                customerRepository.insert(newCustomer);
-                System.out.println("newCustomer object updated, you can return from here ");
-                System.out.println(newCustomer);
-                // return newCustomer;
+    return new CommandLineRunner() {
+      public void run(String... args) throws Exception {
 
-                // find and update and then return
-                Query query = new Query();
-                query.addCriteria(Criteria.where("firstName").is("First Name"));
+        System.out.println("====================");
+        System.out.println("Get the value by findFieldDataByRegexMatch");
+        System.out.println(springDataRepository.findFieldDataByRegexMatch("Org1", "key2", "iso"));
 
-                Update update = new Update();
-                update.set("lastName", "modified last name");
+        System.out.println(springDataRepository.getDataByQueryAnnotation("Org1", "key2", "iso.*" ));
+        System.out.println("====================");
 
-                FindAndModifyOptions options = new FindAndModifyOptions();
-                options.upsert(true);
-                options.returnNew(true);
+        System.out.println("=================Simple Example=============");
+//        System.out.println(springDataRepository.getDataByQueryRegex());
+        System.out.println("=================Simple Example=============");
+//
 
-                try {
-                    Customer modifiedCustomer = mongoOperation
-                        .findAndModify(query, update, options, Customer.class);
-                    // Modified data
-                    System.out.println("Modified Custom data\n");
-                    System.out.println(modifiedCustomer);
-                    // Return from here;
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    throw e;
-                }
+        System.out.println("Heelo");
+
+        List<Criteria> criteriaListAnd = new ArrayList<>();
+        Criteria criteria = new Criteria();
+        String pattern = "/iso/i";
+        String key = "key2";
+
+        criteriaListAnd.add(Criteria.where("organization").is("Org1"));
+        criteriaListAnd.add(Criteria.where("active").is(true));
+        criteriaListAnd.add(Criteria.where("fields").elemMatch(Criteria.where("key").is(key).and("value").regex(pattern)));
+        criteria.andOperator(criteriaListAnd.toArray(new Criteria[criteriaListAnd.size()]));
+
+        Query query = new Query();
+        query.addCriteria(criteria);
+
+//        List<Springdata> objects = mongoTemplate().find(query, Springdata.class);
 
 
-            }
-        };
 
-    }
+
+
+//        // Insert and return
+//        Customer newCustomer = new Customer("First Name", "Last Name", "ABC address");
+//        customerRepository.insert(newCustomer);
+//        System.out.println("newCustomer object updated, you can return from here ");
+//        System.out.println(newCustomer);
+//        // return newCustomer;
+//
+//        // find and update and then return
+//        Query query = new Query();
+//        query.addCriteria(Criteria.where("firstName").is("First Name"));
+//
+//        Update update = new Update();
+//        update.set("lastName", "modified last name");
+//
+//        FindAndModifyOptions options = new FindAndModifyOptions();
+//        options.upsert(true);
+//        options.returnNew(true);
+//
+//        try {
+//          Customer modifiedCustomer = mongoOperation
+//              .findAndModify(query, update, options, Customer.class);
+//          // Modified data
+//          System.out.println("Modified Custom data\n");
+//          System.out.println(modifiedCustomer);
+//          // Return from here;
+//        } catch (Exception e) {
+//          System.out.println(e.getMessage());
+//          throw e;
+//        }
+
+
+      }
+    };
+
+  }
+
+
+//  @Bean
+//  CommandLineRunner init(final CustomerRepository customerRepository) {
+//
+//
+//
+//
+////    System.out.println(customerRepository.findByFirstName("Alice"));
+//    System.out.println(customerRepository.findByFirstName("Alice"));
+//
+//
+//    return new CommandLineRunner() {
+//      public void run(String... args) throws Exception {
+//
+//        // Insert and return
+//        Customer newCustomer = new Customer("First Name", "Last Name", "ABC address");
+//        customerRepository.insert(newCustomer);
+//        System.out.println("newCustomer object updated, you can return from here ");
+//        System.out.println(newCustomer);
+//        // return newCustomer;
+//
+//        // find and update and then return
+//        Query query = new Query();
+//        query.addCriteria(Criteria.where("firstName").is("First Name"));
+//
+//        Update update = new Update();
+//        update.set("lastName", "modified last name");
+//
+//        FindAndModifyOptions options = new FindAndModifyOptions();
+//        options.upsert(true);
+//        options.returnNew(true);
+//
+//        try {
+//          Customer modifiedCustomer = mongoOperation
+//              .findAndModify(query, update, options, Customer.class);
+//          // Modified data
+//          System.out.println("Modified Custom data\n");
+//          System.out.println(modifiedCustomer);
+//          // Return from here;
+//        } catch (Exception e) {
+//          System.out.println(e.getMessage());
+//          throw e;
+//        }
+//
+//
+//      }
+//    };
+//
+//  }
 
 
 }
