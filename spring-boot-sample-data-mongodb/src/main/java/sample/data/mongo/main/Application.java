@@ -16,7 +16,6 @@
 
 package sample.data.mongo.main;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,10 +24,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.web.client.RestTemplate;
+import sample.data.mongo.models.Stores;
 import sample.data.mongo.repository.SpringDataRepository;
 
 @SpringBootApplication(scanBasePackages = "sample.data.mongo")
@@ -38,6 +39,9 @@ public class Application {
 
   @Autowired
   private MongoOperations mongoOperation;
+
+  @Autowired
+  private MongoTemplate mongoTemplate;
 
   @Bean
   public RestTemplate restTemplate() {
@@ -55,38 +59,37 @@ public class Application {
     return new CommandLineRunner() {
       public void run(String... args) throws Exception {
 
-        System.out.println("====================");
-        System.out.println("Get the value by findFieldDataByRegexMatch");
-        System.out.println(springDataRepository.findFieldDataByRegexMatch("Org1", "key2", "iso"));
-
-        System.out.println(springDataRepository.getDataByQueryAnnotation("Org1", "key2", "iso.*" ));
-        System.out.println("====================");
-
-        System.out.println("=================Simple Example=============");
-//        System.out.println(springDataRepository.getDataByQueryRegex());
-        System.out.println("=================Simple Example=============");
+//        System.out.println("====================");
+//        System.out.println("Get the value by findFieldDataByRegexMatch");
+//        System.out.println(springDataRepository.findFieldDataByRegexMatch("Org1", "key2", "iso"));
 //
-
-        System.out.println("Heelo");
-
-        List<Criteria> criteriaListAnd = new ArrayList<>();
-        Criteria criteria = new Criteria();
-        String pattern = "/iso/i";
-        String key = "key2";
-
-        criteriaListAnd.add(Criteria.where("organization").is("Org1"));
-        criteriaListAnd.add(Criteria.where("active").is(true));
-        criteriaListAnd.add(Criteria.where("fields").elemMatch(Criteria.where("key").is(key).and("value").regex(pattern)));
-        criteria.andOperator(criteriaListAnd.toArray(new Criteria[criteriaListAnd.size()]));
-
-        Query query = new Query();
-        query.addCriteria(criteria);
+//        System.out.println(springDataRepository.getDataByQueryAnnotation("Org1", "key2", "iso.*" ));
+//        System.out.println("====================");
+//
+//        System.out.println("=================Simple Example=============");
+////        System.out.println(springDataRepository.getDataByQueryRegex());
+//        System.out.println("=================Simple Example=============");
+////
+//
+//        System.out.println("Heelo");
+//
+//        List<Criteria> criteriaListAnd = new ArrayList<>();
+//        Criteria criteria = new Criteria();
+//        String pattern = "/iso/i";
+//        String key = "key2";
+//
+//        criteriaListAnd.add(Criteria.where("organization").is("Org1"));
+//        criteriaListAnd.add(Criteria.where("active").is(true));
+//        criteriaListAnd.add(Criteria.where("fields").elemMatch(Criteria.where("key").is(key).and("value").regex(pattern)));
+//        criteria.andOperator(criteriaListAnd.toArray(new Criteria[criteriaListAnd.size()]));
+//
+//        Query query = new Query();
+//        query.addCriteria(criteria);
 
 //        List<Springdata> objects = mongoTemplate().find(query, Springdata.class);
 
-
-
-
+        // Function for Questions: https://stackoverflow.com/questions/59034265/mongotemplate-pull-query
+        stackoverflowQ59034265();
 
 //        // Insert and return
 //        Customer newCustomer = new Customer("First Name", "Last Name", "ABC address");
@@ -118,12 +121,27 @@ public class Application {
 //          throw e;
 //        }
 
+      }
+
+      public void stackoverflowQ59034265() {
+        System.out.println(mongoTemplate.getDb().getName());
+        for (String name : mongoTemplate.getDb().listCollectionNames()) {
+          System.out.println(name);
+        }
+        List<Stores> storesList = mongoTemplate.find(new Query(), Stores.class);
+        for(Stores stores : storesList) {
+          System.out.println(stores.toString());
+        }
+        mongoTemplate.updateMulti(new Query(), new Update().pull("vegetables", "squash"), "stores");
+        List<Stores> afterModificationStoresList = mongoTemplate.find(new Query(), Stores.class);
+        for(Stores stores : afterModificationStoresList) {
+          System.out.println(stores.toString());
+        }
 
       }
     };
 
   }
-
 
 //  @Bean
 //  CommandLineRunner init(final CustomerRepository customerRepository) {
