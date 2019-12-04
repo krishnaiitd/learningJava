@@ -153,7 +153,7 @@ public class Application {
 
   }
 
-
+//  https://stackoverflow.com/questions/59167359/why-does-spring-data-fail-on-date-queries
   public void stackoverflow59167359() {
 
     //Find change list query: Query: { "bappid" : "BAPP0131337", "changedOn" : { "$gte" : { "$date" : 1575418473670 } } }, Fields: { }, Sort: { }
