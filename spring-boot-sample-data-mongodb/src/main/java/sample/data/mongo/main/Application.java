@@ -16,7 +16,10 @@
 
 package sample.data.mongo.main;
 
+import java.util.Date;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,10 +28,12 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.web.client.RestTemplate;
+import sample.data.mongo.models.ChangeEvent;
 import sample.data.mongo.models.Stores;
 import sample.data.mongo.repository.SpringDataRepository;
 
@@ -47,6 +52,8 @@ public class Application {
   public RestTemplate restTemplate() {
     return new RestTemplate();
   }
+
+  private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
 
   public static void main(String[] args) {
@@ -89,7 +96,10 @@ public class Application {
 //        List<Springdata> objects = mongoTemplate().find(query, Springdata.class);
 
         // Function for Questions: https://stackoverflow.com/questions/59034265/mongotemplate-pull-query
-        stackoverflowQ59034265();
+//        stackoverflowQ59034265();
+
+//        https://stackoverflow.com/questions/59167359/why-does-spring-data-fail-on-date-queries
+        stackoverflow59167359();
 
 //        // Insert and return
 //        Customer newCustomer = new Customer("First Name", "Last Name", "ABC address");
@@ -143,6 +153,50 @@ public class Application {
 
   }
 
+
+  public void stackoverflow59167359() {
+
+    //Find change list query: Query: { "bappid" : "BAPP0131337", "changedOn" : { "$gte" : { "$date" : 1575418473670 } } }, Fields: { }, Sort: { }
+    fetchChangeList("BAPP0131337", new Date(1543889916), null);
+
+  }
+
+  public List<ChangeEvent> fetchChangeList(String bappid, Date from, Date to) {
+    Criteria criteria = null;
+    criteria = Criteria.where("bappid").is(bappid);
+    Query query = Query.query(criteria);
+    if (from != null && to == null) {
+      criteria = Criteria.where("changedOn").gte(from);
+      query.addCriteria(criteria);
+    } else if (to != null && from == null) {
+      criteria = Criteria.where("changedOn").lte(to);
+      query.addCriteria(criteria);
+    } else if (from != null && to != null) {
+      criteria = Criteria.where("changedOn").gte(from).lte(to);
+      query.addCriteria(criteria);
+    }
+    logger.info("Find change list query: {}", query.toString());
+
+    List<ChangeEvent> result = mongoTemplate.find(query, ChangeEvent.class, "changeEvents");
+    logger.info("Result set is " +  result.toString());
+//    return result;
+
+    System.out.println(mongoTemplate.getDb().getName());
+
+    Query query1 = new Query(Criteria.where("bappid").is(bappid));
+    // Below commented query will not work
+//    List<ChangeEvent> result1 = mongoTemplate.find(query, ChangeEvent.class);
+    // Below query works fine:
+    List<ChangeEvent> result1 = mongoTemplate.find(query1, ChangeEvent.class, "changeEvents");
+    logger.info("Result set is " +  result1.toString());
+
+//    mongoTemplate.find
+
+
+
+    return result1;
+
+  }
 //  @Bean
 //  CommandLineRunner init(final CustomerRepository customerRepository) {
 //
