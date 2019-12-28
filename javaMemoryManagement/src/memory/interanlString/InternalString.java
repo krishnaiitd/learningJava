@@ -48,6 +48,24 @@ public class InternalString {
             System.out.println("they are different objects");
         }
 
+        System.out.println("===============");
+        long x = 10l;
+        String y = String.valueOf(x).intern();
+        String z = "10";
+        if (y == z) {
+            System.out.println("they are the same objects");
+        } else {
+            System.out.println("they are different objects");
+        }
+
+        System.out.println("===============");
+
+
+
+//        while(true) {
+//            String a1 = "1";
+//        }
+
 
     }
 }

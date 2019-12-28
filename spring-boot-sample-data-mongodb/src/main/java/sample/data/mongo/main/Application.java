@@ -36,6 +36,7 @@ import org.springframework.web.client.RestTemplate;
 import sample.data.mongo.models.ChangeEvent;
 import sample.data.mongo.models.Stores;
 import sample.data.mongo.repository.SpringDataRepository;
+import sample.data.mongo.services.LookupAggregation;
 
 @SpringBootApplication(scanBasePackages = "sample.data.mongo")
 @EnableConfigurationProperties
@@ -47,6 +48,9 @@ public class Application {
 
   @Autowired
   private MongoTemplate mongoTemplate;
+
+  @Autowired
+  private LookupAggregation lookupAggregation;
 
   @Bean
   public RestTemplate restTemplate() {
@@ -99,7 +103,7 @@ public class Application {
 //        stackoverflowQ59034265();
 
 //        https://stackoverflow.com/questions/59167359/why-does-spring-data-fail-on-date-queries
-        stackoverflow59167359();
+//        stackoverflow59167359();
 
 //        // Insert and return
 //        Customer newCustomer = new Customer("First Name", "Last Name", "ABC address");
@@ -130,6 +134,9 @@ public class Application {
 //          System.out.println(e.getMessage());
 //          throw e;
 //        }
+
+        //https://stackoverflow.com/questions/59495531/about-springdata-mongodb-aggregation
+        lookupAggregation.LookupAggregationExample();
 
       }
 
@@ -197,6 +204,11 @@ public class Application {
     return result1;
 
   }
+
+
+
+
+
 //  @Bean
 //  CommandLineRunner init(final CustomerRepository customerRepository) {
 //
