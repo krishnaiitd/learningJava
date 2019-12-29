@@ -37,6 +37,7 @@ import sample.data.mongo.models.ChangeEvent;
 import sample.data.mongo.models.Stores;
 import sample.data.mongo.repository.SpringDataRepository;
 import sample.data.mongo.services.LookupAggregation;
+import sample.data.mongo.services.TextSearchQueryExample;
 
 @SpringBootApplication(scanBasePackages = "sample.data.mongo")
 @EnableConfigurationProperties
@@ -51,6 +52,9 @@ public class Application {
 
   @Autowired
   private LookupAggregation lookupAggregation;
+
+  @Autowired
+  private TextSearchQueryExample textSearchQueryExample;
 
   @Bean
   public RestTemplate restTemplate() {
@@ -136,7 +140,12 @@ public class Application {
 //        }
 
         //https://stackoverflow.com/questions/59495531/about-springdata-mongodb-aggregation
-        lookupAggregation.LookupAggregationExample();
+//        lookupAggregation.LookupAggregationExample();
+
+
+//        https://stackoverflow.com/questions/59467010/creating-a-repository-query-that-include-textcriteria-and-one-other-field
+        textSearchQueryExample.getCampaignWithSearchQuery();
+
 
       }
 
