@@ -36,6 +36,7 @@ import org.springframework.web.client.RestTemplate;
 import sample.data.mongo.models.ChangeEvent;
 import sample.data.mongo.models.Stores;
 import sample.data.mongo.repository.SpringDataRepository;
+import sample.data.mongo.services.CustomFindQueryExecutor;
 import sample.data.mongo.services.LookupAggregation;
 import sample.data.mongo.services.TextSearchQueryExample;
 
@@ -55,6 +56,14 @@ public class Application {
 
   @Autowired
   private TextSearchQueryExample textSearchQueryExample;
+
+  @Autowired
+  private CustomFindQueryExecutor customFindQueryExecutor;
+
+
+
+
+
 
   @Bean
   public RestTemplate restTemplate() {
@@ -144,7 +153,11 @@ public class Application {
 
 
 //        https://stackoverflow.com/questions/59467010/creating-a-repository-query-that-include-textcriteria-and-one-other-field
-        textSearchQueryExample.getCampaignWithSearchQuery();
+//        textSearchQueryExample.getCampaignWithSearchQuery();
+
+
+//        https://stackoverflow.com/questions/59469988/how-do-i-execute-a-mongodb4-2-js-script-using-the-spring-data-mongodb-or-java-mo
+        customFindQueryExecutor.RunCustomQuery();
 
 
       }
