@@ -38,6 +38,7 @@ import sample.data.mongo.models.Stores;
 import sample.data.mongo.repository.SpringDataRepository;
 import sample.data.mongo.services.CustomFindQueryExecutor;
 import sample.data.mongo.services.LookupAggregation;
+import sample.data.mongo.services.SystemOsLevelInfo;
 import sample.data.mongo.services.TextSearchQueryExample;
 
 @SpringBootApplication(scanBasePackages = "sample.data.mongo")
@@ -60,8 +61,8 @@ public class Application {
   @Autowired
   private CustomFindQueryExecutor customFindQueryExecutor;
 
-
-
+  @Autowired
+  private SystemOsLevelInfo systemOsLevelInfo;
 
 
 
@@ -157,9 +158,10 @@ public class Application {
 
 
 //        https://stackoverflow.com/questions/59469988/how-do-i-execute-a-mongodb4-2-js-script-using-the-spring-data-mongodb-or-java-mo
-        customFindQueryExecutor.RunCustomQuery();
+//        customFindQueryExecutor.RunCustomQuery();
 
-
+//        https://stackoverflow.com/questions/12807797/java-get-available-memory
+        systemOsLevelInfo.getMemoryInfo();
       }
 
       public void stackoverflowQ59034265() {

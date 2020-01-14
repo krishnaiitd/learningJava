@@ -1,5 +1,7 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
+*/tartget*
+spring-boot-sample-data-mongodb/target/
 
 ### STS ###
 .apt_generated
