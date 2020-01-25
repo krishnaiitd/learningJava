@@ -31,7 +31,7 @@ public class ExecutorServiceExample {
 //        executorService.shutdown();
 
         // 3. Execute the task using submit method
-        Future<String> result = executorService.submit(runnableTask, "Done");
+        Future<String> result = executorService.submit(runnableTask, "Donek");
         while(result.isDone() == false)
         {
             try
@@ -55,8 +55,11 @@ public class ExecutorServiceExample {
 
         System.out.println("Break from the other thread works and now at main thread");
 
-        //Shut down the executor service
 //        executorService.shutdownNow();
+        System.out.println(executorService.isTerminated());
+        System.out.println(executorService.isShutdown());
+        //Shut down the executor service, without below line, code will not exited.
+        executorService.shutdown();
 
     }
 }

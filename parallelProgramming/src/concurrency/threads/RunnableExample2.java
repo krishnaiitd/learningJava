@@ -1,6 +1,6 @@
 package concurrency.threads;
 
-public class MyRunnableImplementation2 implements Runnable {
+public class RunnableExample2 implements Runnable {
 
     // We are creating anew class that implements the Runnable interface,
     // so we need to override and implement it's only method, run().

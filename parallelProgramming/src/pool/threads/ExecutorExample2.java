@@ -7,7 +7,6 @@ public class ExecutorExample2 {
 
     public static Executor executor = Executors.newSingleThreadExecutor();
 
-
     public static Runnable testing() {
 
         Runnable runnableTask = () -> {
@@ -36,8 +35,6 @@ public class ExecutorExample2 {
         System.out.println(Thread.currentThread().getName());
         System.out.println("\n");
         System.out.println(Thread.getAllStackTraces());
-
-
 
     }
 

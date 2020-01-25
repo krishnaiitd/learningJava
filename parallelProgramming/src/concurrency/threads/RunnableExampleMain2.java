@@ -7,7 +7,7 @@ public class RunnableExampleMain2 {
 
         // Create a new instance of our class that implements the Runnable interface.
         // This class can be provided as an argument to a Thread instance.
-        MyRunnableImplementation2 r = new MyRunnableImplementation2();
+        RunnableExample2 r = new RunnableExample2();
 
         // Create a new Thread instance, provide the task that we want to run
         // (by providing the Runnable as an argument) and give the thread a name.
@@ -24,7 +24,7 @@ public class RunnableExampleMain2 {
         // Create a thread and provide the Runnable argument as an anonymous inner class.
         // Since we are creating the class "on the spot", we need to provide the implementation
         // of the run() method here.
-        // This way is faster and more compact, but it lacks reusability.
+        // This way is faster and more compact, but it lacks Reusability.
         Thread thread3 = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -36,7 +36,21 @@ public class RunnableExampleMain2 {
                 }
             }
         }, "Thread 3");
+
+        Thread thread4 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                // We are doing the same thing as with the MyRunnableImplementation class
+                for (int i = 0; i < 5; i++) {
+                    System.out.println(Thread.currentThread().getName() +
+                        "\twith Runnable: Inner class Runnable runs..." + i);
+                }
+            }
+        }, "Thread 4");
+
         thread3.start();
+        thread4.start();
 
     }
 

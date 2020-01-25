@@ -1,15 +1,14 @@
-package concurrency.threads;
+package non.concurrency.threads;
 
-public class MyRunnableExample1 implements Runnable {
+public class MyExample1 {
 
-  private final long countUntil;
+  private long countUntil;
 
-  MyRunnableExample1(long countUntil) {
+  MyExample1(long countUntil) {
     this.countUntil = countUntil;
   }
 
-  @Override
-  public void run() {
+  public void reciprocalSum() {
 //    System.out.println("Running thread name is: " + Thread.currentThread().getName());
     double sum = 0;
     for (long i = 0; i < countUntil; i++) {
@@ -17,5 +16,4 @@ public class MyRunnableExample1 implements Runnable {
     }
 //    System.out.println("Total reciprocal sum is : " + sum);
   }
-
 }
