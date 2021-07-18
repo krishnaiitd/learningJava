@@ -26,6 +26,7 @@ public class HelloWorld {
 
         String b = a.concat(" Prasad");
 
+        System.out.println(a);
         System.out.println(b);
         System.out.println(s);
 
