@@ -2,79 +2,78 @@ public class Knapsack {
 
     static public int[][] dp;
 
-    static int knapsack_recursive(int[] wt, int[] val, int w, int n) {
-        if (n ==0 ||w == 0) {
+    static int knapsack_recursive(int[] weights, int[] values, int capacity, int elements_num) {
+        if (elements_num == 0 || capacity == 0) {
             return 0;
         }
 
         // Select choice
-        if (wt[n-1] <= w) {
-            return Math.max(
-                    val[n-1] + knapsack_recursive(wt, val, w-wt[n-1], n-1),
-                    knapsack_recursive(wt, val, w, n-1));
+        if (weights[elements_num - 1] <= capacity) {
+            return Math.max(values[elements_num - 1] + knapsack_recursive(weights, values, capacity - weights[elements_num - 1], elements_num - 1), knapsack_recursive(weights, values, capacity, elements_num - 1));
         } else {
-            return knapsack_recursive(wt, val, w, n-1);
+            return knapsack_recursive(weights, values, capacity, elements_num - 1);
         }
     }
 
-    public static int knapsack_memorisation(int wt[], int val[], int w, int n) {
-        if (n == 0 || w == 0) {return 0;}
+    public static int knapsack_memorisation(int weights[], int values[], int capacity, int elements_num) {
+        if (elements_num == 0 || capacity == 0) {
+            return 0;
+        }
 
-        if (dp[n][w] != -1) return dp[n][w];
+        if (dp[elements_num][capacity] != -1) return dp[elements_num][capacity];
 
-        if (wt[n-1] <= w) {
-            return dp[n][w] = Math.max(
-                    val[n-1] + knapsack_memorisation(wt, val, w-wt[n-1], n-1),
-                    knapsack_memorisation(wt, val, w, n-1));
+        if (weights[elements_num - 1] <= capacity) {
+            return dp[elements_num][capacity] = Math.max(values[elements_num - 1] + knapsack_memorisation(weights, values, capacity - weights[elements_num - 1], elements_num - 1), knapsack_memorisation(weights, values, capacity, elements_num - 1));
         } else {
-           return dp[n][w] = knapsack_memorisation(wt, val, w, n-1);
+            return dp[elements_num][capacity] = knapsack_memorisation(weights, values, capacity, elements_num - 1);
         }
 
     }
 
-    public static int knapsack_topDown(int wt[], int val[], int w, int n) {
+    public static int knapsack_topDown(int weights[], int values[], int capacity, int elements_num) {
 
-        for(int i = 1; i < n+1; i++) {
-            for(int j = 1; j < w + 1; j++) {
-                if (i ==0 || j == 0) {
+        for (int i = 1; i < elements_num + 1; i++) {
+            for (int j = 1; j < capacity + 1; j++) {
+                if (i == 0 || j == 0) {
                     dp[i][j] = 0;
-                } else if (wt[i-1] <= j) {
-                    dp[i][j] = Math.max(val[i-1] + dp[i-1][j-wt[i-1]], dp[i-1][j]);
+                } else if (weights[i - 1] <= j) {
+                    dp[i][j] = Math.max(values[i - 1] + dp[i - 1][j - weights[i - 1]], dp[i - 1][j]);
                 } else {
-                    dp[i][j] = dp[i-1][j];
+                    dp[i][j] = dp[i - 1][j];
                 }
             }
         }
-        return dp[n][w];
+        return dp[elements_num][capacity];
     }
-    public static void main(String[] args) {
-        int wt[] = new int[]{1, 3, 4, 5};
-        int val[] = new int[]{1, 4, 5, 7};
-        int w = 7;
 
-        System.out.println("Recursive call: " + knapsack_recursive(wt, val, w, wt.length));
-        dp = new int[val.length +1][w + 1];
-        for(int i                                   = 0; i < val.length + 1; i++) {
-            for(int j = 0; j < w + 1; j++) {
+    public static void main(String[] args) {
+        int weights[] = new int[]{1, 3, 4, 5};
+        int values[] = new int[]{1, 4, 5, 7};
+        int capacity = 7;
+        int elements_num = weights.length;
+        System.out.println("Recursive call: " + knapsack_recursive(weights, values, capacity, elements_num));
+        dp = new int[values.length + 1][+1];
+        for (int i = 0; i < elements_num + 1; i++) {
+            for (int j = 0; j < capacity + 1; j++) {
                 dp[i][j] = -1;
             }
         }
-        System.out.println("Memorization call: " + knapsack_memorisation(wt, val, w, wt.length));
-        for(int i = 0; i < val.length + 1; i++) {
-            for(int j = 0; j < w + 1; j++) {
+        System.out.println("Memorization call: " + knapsack_memorisation(weights, values, capacity, elements_num));
+        for (int i = 0; i < values.length + 1; i++) {
+            for (int j = 0; j < capacity + 1; j++) {
                 System.out.print("\t " + dp[i][j]);
             }
             System.out.println("\n");
         }
-        dp = new int[val.length +1][w + 1];
-        for(int i = 0; i < val.length + 1; i++) {
-            for(int j = 0; j < w + 1; j++) {
+        dp = new int[values.length + 1][capacity + 1];
+        for (int i = 0; i < values.length + 1; i++) {
+            for (int j = 0; j < capacity + 1; j++) {
                 dp[i][j] = 0;
             }
         }
-        System.out.println("Top-down:" + knapsack_topDown(wt, val, w, wt.length));
-        for(int i = 0; i < val.length + 1; i++) {
-            for(int j = 0; j < w + 1; j++) {
+        System.out.println("Top-down:" + knapsack_topDown(weights, values, capacity, weights.length));
+        for (int i = 0; i < values.length + 1; i++) {
+            for (int j = 0; j < capacity + 1; j++) {
                 System.out.print("\t " + dp[i][j]);
             }
             System.out.println("\n");
