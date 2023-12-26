@@ -5,10 +5,12 @@ public class question1 {
 
         int a = 8;
         System.out.println("8 =" + Integer.toBinaryString(a));
-        int rightShift = a>>1;
-        System.out.println("8>>1 ==" + Integer.toBinaryString(rightShift));
-        int leftShift = a<<1;
-        System.out.println("8<<1 ==" + Integer.toBinaryString(leftShift));
+        int rightShift = a>>2;
+        System.out.println("8>>1 ==" + Integer.toBinaryString(rightShift)
+                + " to decimal after right shift = " + rightShift);
+        int leftShift = a<<2;
+        System.out.println("8<<1 ==" + Integer.toBinaryString(leftShift)
+                + " to decimal value after left shift " + leftShift);
 
         System.out.println("============");
         System.out.println(8>>1);
@@ -45,6 +47,15 @@ public class question1 {
         System.out.println("-60 >>> 1 = " + Integer.toBinaryString(c) + " decimal values " + c);
 
 
+
+        byte num1 = 8;
+        byte num2 = -8;
+
+        System.out.println("num1 >>> 2 = " + (num1 >>> 2));
+        System.out.println("num1 >> 2 = " + (num1 >> 2));
+        System.out.println("num2 >>> 2 = " + (num2 >>> 2));
+        System.out.println("num2 >> 2 = " + (num2 >> 2));
+
         Integer intput = 100;
         Integer provided = 7;
         Integer ans = 0;
@@ -52,5 +63,7 @@ public class question1 {
             ans += intput;
         }
         System.out.println(ans);
+
+
     }
 }
